@@ -1,6 +1,5 @@
 # Examine _This_: Using Network Analysis to Investigate the Structure of Technology
 
-
 This repository houses an independent project geared at extracting insights into the relative importance of US  utility patents and analyzing underlying structure and relationship of those patents. Raw patent data utilized is taken from the databases made available by the [Fung Institute](https://github.com/funginstitute/downloads/blob/master/README.md) at UC Berkeley.
 
 For an in-depth look into the motivation and methodology of the project, read on.
