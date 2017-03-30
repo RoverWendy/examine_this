@@ -12,6 +12,8 @@ def get_class_subset(df, class_number):
     '''Return subset of dataframe where Class matches class_number '''
     return df[df.Class == class_number]
 
+
+
 year_class335_dfs = {g: get_class_subset(year_dfs[g], 335) for g in year_dfs}
 
 ## Number of citations within class 335, annually
@@ -73,3 +75,43 @@ df3.to_csv('edgelist_1985.txt', sep='\t', header=False, index=False)
 df4.to_csv('edgelist_1990.txt', sep='\t', header=False, index=False)
 df5.to_csv('edgelist_1995.txt', sep='\t', header=False, index=False)
 df6.to_csv('edgelist_2000.txt', sep='\t', header=False, index=False)
+
+
+
+#############
+class_sizes = []
+    for c in patent.Class.unique():
+        class_sizes.append((c, get_subset(patent, 'Class', c).shape[0]))
+#look at largest classes, choose among them for visualization
+#chose database managment (class 707)
+dbm = get_subset(patent, 'Class', 707)
+year_bins = [patent.GYear.unique()[i:i + 5] for i in range(0, len(patent.GYear.unique()), 5)]
+year_bins = year_bins[:-1]
+df1 = dbm[dbm.GYear < 1980]
+df2 = dbm[(dbm.GYear > 1979) & (dbm.GYear < 1985)]
+df3 = dbm[(dbm.GYear > 1984) & (dbm.GYear < 1990)]
+df4 = dbm[(dbm.GYear > 1989) & (dbm.GYear < 1995)]
+df5 = dbm[(dbm.GYear > 1994) & (dbm.GYear < 2000)]
+df6 = dbm[(dbm.GYear > 1999) & (dbm.GYear < 2005)]
+#get dfs for five-year bins, just for the selected class
+df1 = df1[['Patent', 'Citation']]
+df2 = df2[['Patent', 'Citation']]
+df3 = df3[['Patent', 'Citation']]
+df4 = df4[['Patent', 'Citation']]
+df5 = df5[['Patent', 'Citation']]
+df6 = df6[['Patent', 'Citation']]
+df1.columns = ['Source', 'Target']
+df2.columns = ['Source', 'Target']
+df3.columns = ['Source', 'Target']
+df4.columns = ['Source', 'Target']
+df5.columns = ['Source', 'Target']
+df6.columns = ['Source', 'Target']
+
+
+
+df1.to_csv('data/edgelist_dbm_1975.csv', index=False)
+df2.to_csv('data/edgelist_dbm_1980.csv', index=False)
+df3.to_csv('data/edgelist_dbm_1985.csv', index=False)
+df4.to_csv('data/edgelist_dbm_1990.csv', index=False)
+df5.to_csv('data/edgelist_dbm_1995.csv', index=False)
+df6.to_csv('data/edgelist_dbm_2000.csv', index=False)
